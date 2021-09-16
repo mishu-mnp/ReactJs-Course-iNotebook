@@ -12,6 +12,11 @@ const { body, validationResult } = require('express-validator');
 // bcypt for security purpose or adding salt concept in passwords
 const bcrypt = require('bcryptjs');
 
+// jsonWebToken
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = "duniyaMastHai";
+
 // Creating a User using: POST "api/auth/createuser"   | No login required 
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 5 }),
@@ -25,6 +30,7 @@ router.post('/createuser', [
         return res.status(400).json({ errors: errors.array() });
     }
 
+
     // Check whether the user with this email exists already
     try {
         // findOne is an asynchronous func to check for a particular field (here email) value already exists or not 
@@ -33,13 +39,26 @@ router.post('/createuser', [
             return res.status(400).json({ error: 'Sorry! User with this email already exists' })
         }
 
+        const salt = await bcrypt.genSalt(10);
+        const secPassword = await bcrypt.hash(req.body.password, salt);
+        console.log(secPassword)
+
         // Creates a User
         user = await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
-        })
-        res.json(user)
+            password: secPassword
+        });
+
+        const data = {
+            user: {
+                id: user.id
+            }
+        };
+
+        const authToken = jwt.sign(data, JWT_SECRET);
+        // res.json(user)
+        res.json({ authToken });
     }
     catch (error) {
         console.error(error.message);
