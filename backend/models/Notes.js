@@ -1,6 +1,9 @@
+// Notes Model
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+// Type or format for Notes data fields
 const NotesSchema = new Schema({
     title: {
         type: String,

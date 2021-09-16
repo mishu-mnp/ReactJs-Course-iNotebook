@@ -1,7 +1,16 @@
 const express = require('express');
+
+// creating router obj from expres  
 const router = express.Router();
+
+// importing models User file
 const User = require('../models/User');
+
+// for correct or valid input of data entered by User 
 const { body, validationResult } = require('express-validator');
+
+// bcypt for security purpose or adding salt concept in passwords
+const bcrypt = require('bcryptjs');
 
 // Creating a User using: POST "api/auth/createuser"   | No login required 
 router.post('/createuser', [
@@ -18,6 +27,7 @@ router.post('/createuser', [
 
     // Check whether the user with this email exists already
     try {
+        // findOne is an asynchronous func to check for a particular field (here email) value already exists or not 
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             return res.status(400).json({ error: 'Sorry! User with this email already exists' })
