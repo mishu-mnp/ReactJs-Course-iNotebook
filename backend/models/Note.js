@@ -5,6 +5,10 @@ const { Schema } = mongoose;
 
 // Type or format for Notes data fields
 const NotesSchema = new Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     title: {
         type: String,
         required: true
