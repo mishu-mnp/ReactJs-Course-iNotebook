@@ -36,7 +36,7 @@ const AddNote = () => {
                     <input type="checkbox" className="form-check-input" id="cnf" />
                     <label className="form-check-label" htmlFor="cnf">Sure ?</label>
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={handleAddClick}>Submit</button>
+                <button type="submit" className="btn btn-primary" onClick={handleAddClick}>Add Note</button>
             </form>
         </div>
     )
