@@ -6,7 +6,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="container" style={{ marginTop: "5rem" }}>
+            <div className="container" style={{ marginTop: "15px" }}>
                 <h2>Add Note</h2>
                 <form>
                     <div className="mb-3">
