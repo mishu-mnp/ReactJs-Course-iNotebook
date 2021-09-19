@@ -1,6 +1,7 @@
 // importing func connecting to Mongo from db.js file 
 const connectToMongo = require('./db');
 
+const cors = require('cors')
 // importing express app
 const express = require('express')
 
@@ -15,6 +16,8 @@ const port = 5000
 
 // To use JSON 
 app.use(express.json())
+
+app.use(cors())
 
 // Available Routes
 // ---> Authentication route
