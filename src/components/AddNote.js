@@ -32,10 +32,6 @@ const AddNote = () => {
                     <label htmlFor="tag" className="form-label">Tag</label>
                     <input type="text" className="form-control" id="tag" name="tag" onChange={handleOnChange} />
                 </div>
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="cnf" />
-                    <label className="form-check-label" htmlFor="cnf">Sure ?</label>
-                </div>
                 <button type="submit" className="btn btn-primary" onClick={handleAddClick}>Add Note</button>
             </form>
         </div>
