@@ -51,21 +51,21 @@ const Notes = () => {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="utitle" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="utitle" name="utitle" value={note.utitle} aria-describedby="emailHelp" onChange={handleOnChange} />
+                                    <input type="text" className="form-control" id="utitle" name="utitle" value={note.utitle} aria-describedby="emailHelp" onChange={handleOnChange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="udescription" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="udescription" name="udescription" value={note.udescription} onChange={handleOnChange} />
+                                    <input type="text" className="form-control" id="udescription" name="udescription" value={note.udescription} onChange={handleOnChange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="utag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" id="utag" name="utag" value={note.utag} onChange={handleOnChange} />
+                                    <input type="text" className="form-control" id="utag" name="utag" value={note.utag} onChange={handleOnChange} minLength={3} required />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleAddClick}>Update Note</button>
+                            <button disabled={note.utitle.length < 5 || note.udescription.length < 5 || note.utag.length < 3} type="button" className="btn btn-primary" onClick={handleAddClick}>Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -73,6 +73,9 @@ const Notes = () => {
 
             <div className="row my-2">
                 <h2>Your Notes</h2>
+                <div className="container mx-2">
+                    {notes.length === 0 && 'No Notes to Display'}
+                </div>
                 {notes.map((note) => {
                     return <Noteitem key={note._id} updateNote={handleUpdateNote} note={note} />
                 })}
