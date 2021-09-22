@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = (props) => {
     let history = useHistory();
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cnfpassword: "" })
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, email, password, cnfpassword } = credentials;
         if (password !== cnfpassword) {
-            alert('Password must be same')
+            props.showAlert("Password must be same", "info");
         }
         else {
             const response = await fetch("http://localhost:5000/api/auth/createuser", {
@@ -23,10 +23,10 @@ const SignUp = () => {
             if (json.success) {
                 localStorage.setItem('token', json.authtoken)
                 history.push('/');
-                console.log(json)
+                props.showAlert("Account Created Successfully!", "success");
             }
             else {
-                alert("Invalid Credentials")
+                props.showAlert("Invalid Credentials", "danger");
             }
         }
     }
